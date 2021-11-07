@@ -2,24 +2,44 @@
 
 ## Functionalities
 
-Favorite a tweet
+### Favorite a tweet
+<br />
+
 ![alt text](assets/favorite.png)
+<br />
+
 ![alt text](assets/favorite2.png)
+<br />
 
+### Add new tweet (both Mobile and Desktop versions)
 
-Add new tweet (both Mobile and Desktop versions)
+<br />
 
-_Desktop
+* Desktop
+<br />
+
 ![alt text](assets/addTweet.png)
+<br />
+
 ![alt text](assets/addTweet2.png)
 
-_Mobile
+<br />
+
+* Mobile
+<br />
+
 ![alt text](assets/addTweet-mobile.png)
+<br />
+
 ![alt text](assets/addTweet-mobile2.png)
 
-Follow button
-![alt text](assets/follow.png.png)
-![alt text](assets/follow2.png.png)
+### Follow button
+<br />
+
+![alt text](assets/follow.png)
+<br />
+
+![alt text](assets/follow2.png)
 
 
 ## Build Setup
