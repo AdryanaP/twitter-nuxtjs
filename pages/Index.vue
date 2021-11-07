@@ -1,5 +1,5 @@
 <template>
-  <div class="home h-screen h-auto w-screen">
+  <div class="home h-screen w-screen">
     <Nav />
     <main class="lg:flex  lg:gap-4 lg:justify-center grid py-14 lg:pt-20">
       <div class="hidden lg:block">

@@ -89,7 +89,6 @@
         class="
           lg:w-10 lg:h-10 lg:block
           md:h-14 md:w-14
-          lg:transform lg:-translate-x-12
           hidden
         "
       />
@@ -99,7 +98,7 @@
         class="h-11 w-11 rounded-full block lg:hidden"
       />
 
-      <div class="lg:flex lg:space-x-4 hidden">
+      <div class="lg:flex lg:space-x-4 hidden w-27 justify-center">
         <form method="GET">
           <div class="relative text-gray-600 focus-within:text-gray-400">
             <span class="absolute inset-y-0 left-0 flex items-center pl-2">

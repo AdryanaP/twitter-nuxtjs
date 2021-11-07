@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       titles: [
-        "#foraBolsonaro",
+        "#layoutTwitterRaiz",
         "#contrateEssaDev",
         "#ILoveRockbuzz",
         "#takingTheHobbitsToIsengard",

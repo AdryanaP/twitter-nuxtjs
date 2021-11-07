@@ -17,6 +17,7 @@ module.exports = {
       },
       width: {
         33: '33rem',
+        27: "27rem",
       },
       colors: {
         blueTT: '#1d9bf0',

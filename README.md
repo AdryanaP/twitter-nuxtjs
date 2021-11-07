@@ -1,5 +1,27 @@
 # twitter
 
+## Functionalities
+
+Favorite a tweet
+![alt text](assets/favorite.png)
+![alt text](assets/favorite2.png)
+
+
+Add new tweet (both Mobile and Desktop versions)
+
+_Desktop
+![alt text](assets/addTweet.png)
+![alt text](assets/addTweet2.png)
+
+_Mobile
+![alt text](assets/addTweet-mobile.png)
+![alt text](assets/addTweet-mobile2.png)
+
+Follow button
+![alt text](assets/follow.png.png)
+![alt text](assets/follow2.png.png)
+
+
 ## Build Setup
 
 ```bash
