@@ -106,8 +106,8 @@
           >
             <StarIcon
               class="lg:h-3 lg:w-3 h-4 w-4 lg:m-0"
-              :class="star ? 'text-yellow-500' : 'text-gray'"
-              :fill="star ? 'currentColor' : 'none'"
+              :class="tweet.favorite ? 'text-yellow-500' : 'text-gray'"
+              :fill="tweet.favorite ? 'currentColor' : 'none'"
             />
             <span class="flex hidden lg:block"> Favorite </span>
           </button>
@@ -137,6 +137,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import { ReplyIcon } from '@vue-hero-icons/outline'
 import { RefreshIcon } from '@vue-hero-icons/outline'
 import { StarIcon } from '@vue-hero-icons/outline'
@@ -159,27 +160,25 @@ export default {
     },
   },
 
-  data() {
-    return {
-      star: false,
-    }
-  },
-
   methods: {
+    ...mapMutations(['updateTweet']),
+
     update() {
       fetch(`/api/tweets/${this.tweet.id}`, {
         method: 'PUT',
         body: JSON.stringify({
-          name: this.name,
-          user: this.user,
-          text: this.text,
-          profileImage: this.profileImage,
-          favorite: !this.favorite,
+          name: this.tweet.name,
+          user: this.tweet.user,
+          text: this.tweet.text,
+          profileImage: this.tweet.profileImage,
+          favorite: !this.tweet.favorite,
         }),
       })
-      this.star = !this.star
+        .then((res) => res.json())
+        .then((res) => {
+          this.updateTweet(res)
+        })
     },
   },
-
 }
 </script>

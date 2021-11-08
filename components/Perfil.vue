@@ -96,11 +96,11 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
-import ResizableTextarea from "@/components/ResizableTextarea";
+import { mapMutations } from 'vuex'
+import ResizableTextarea from '@/components/ResizableTextarea'
 
 export default {
-  name: "Perfil",
+  name: 'Perfil',
 
   components: {
     ResizableTextarea,
@@ -110,21 +110,21 @@ export default {
     return {
       writing: false,
       tweets: [],
-      name: "Gandalf ex cizento",
-      user: "@reidelas",
-      text: "",
+      name: 'Gandalf ex cizento',
+      user: '@reidelas',
+      text: '',
       profileImage:
-        "https://yaktribe.games/community/media/gandalf-jpg.45940/full",
-    };
+        'https://yaktribe.games/community/media/gandalf-jpg.45940/full',
+    }
   },
 
   methods: {
-    ...mapMutations(["addTweet"]),
+    ...mapMutations(['addTweet']),
 
     create() {
-      if (this.text.trim().length > 0 ) {
-        fetch("/api/tweets", {
-          method: "POST",
+      if (this.text.trim().length > 0) {
+        fetch('/api/tweets', {
+          method: 'POST',
           body: JSON.stringify({
             name: this.name,
             user: this.user,
@@ -135,11 +135,11 @@ export default {
         })
           .then((res) => res.json())
           .then((res) => {
-            this.addTweet(res.tweet);
-            this.text = "";
-          });
-      } 
+            this.addTweet(res.tweet)
+            this.text = ''
+          })
+      }
     },
   },
-};
+}
 </script>
