@@ -9,7 +9,7 @@
     "
   >
     <h2 class="p-3 text-lg font-bold hidden lg:block">Tweets</h2>
-    <Tweet v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />
+    <Tweet v-for="tweet in tweets" :key="tweet.id" :tweet="tweet"/>
   </div>
 </template>
 
@@ -24,31 +24,19 @@ export default {
     Tweet,
   },
 
-  data() {
-    return {
-      name: '',
-      user: '',
-      text: '',
-      profileImage: '',
-      postImage: '',
-      favorite: false,
-    }
-  },
-
   computed: {
     ...mapState(['tweets']),
   },
 
   created() {
-    fetch('/api/tweets')
-      .then((res) => res.json())
-      .then((res) => {
-        this.setTweet(res.tweets)
-      })
+    this.$axios.$get('/api/tweets').then((res) => {
+      this.setTweet(res.tweets)
+      console.log(res.tweets)
+    })
   },
 
   methods: {
-    ...mapMutations(['setTweet']),
+    ...mapMutations(['setTweet', 'setUsers']),
   },
 }
 </script>

@@ -13,7 +13,7 @@
       "
     >
       <img
-        :src="tweet.profileImage"
+        :src="tweet.user.profileImage"
         alt="profile image"
         class="lg:h-14 lg:w-16 h-12 object-cover rounded-full"
       />
@@ -21,9 +21,9 @@
 
     <div class="w-full">
       <div class="flex md:space-x-2 space-x-1 items-baseline">
-        <p class="md:text-base text-sm font-semibold">{{ tweet.name }}</p>
+        <p class="md:text-base text-sm font-semibold">{{ tweet.user.name }}</p>
         <p class="text-xs font-semibold text-gray-500">
-          {{ tweet.user }}
+          {{ tweet.user.username }}
         </p>
       </div>
       <p class="mb-2 break-all">
@@ -106,10 +106,10 @@
           >
             <StarIcon
               class="lg:h-3 lg:w-3 h-4 w-4 lg:m-0"
-              :class="tweet.favorite ? 'text-yellow-500' : 'text-gray'"
-              :fill="tweet.favorite ? 'currentColor' : 'none'"
+              :class="star ? 'text-yellow-500' : 'text-gray'"
+              :fill="star ? 'currentColor' : 'none'"
             />
-            <span class="flex hidden lg:block"> Favorite </span>
+            <span class="flex hidden lg:block"> Favorite {{this.tweet.favorite}}</span>
           </button>
 
           <button
@@ -160,23 +160,21 @@ export default {
     },
   },
 
+  data() {
+    return {
+      star: false
+    }
+  },
+
   methods: {
     ...mapMutations(['updateTweet']),
 
     update() {
-      fetch(`/api/tweets/${this.tweet.id}`, {
-        method: 'PUT',
-        body: JSON.stringify({
-          name: this.tweet.name,
-          user: this.tweet.user,
-          text: this.tweet.text,
-          profileImage: this.tweet.profileImage,
-          favorite: !this.tweet.favorite,
-        }),
-      })
-        .then((res) => res.json())
-        .then((res) => {
+        this.$axios.$put(`/api/tweets/${this.tweet.id}`, {
+          favorite: this.tweet.favorite +1 
+        }).then((res) => {
           this.updateTweet(res)
+          this.star = !this.star
         })
     },
   },

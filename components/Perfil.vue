@@ -123,17 +123,14 @@ export default {
 
     create() {
       if (this.text.trim().length > 0) {
-        fetch('/api/tweets', {
-          method: 'POST',
-          body: JSON.stringify({
+        this.$axios
+          .$post('/api/tweets', {
             name: this.name,
             user: this.user,
             text: this.text,
             profileImage: this.profileImage,
-            favorite: false,
-          }),
-        })
-          .then((res) => res.json())
+            favorite: 0,
+          })
           .then((res) => {
             this.addTweet(res.tweet)
             this.text = ''

@@ -124,7 +124,7 @@
             />
           </div>
         </form>
-        <ul class="flex space-x-2">
+        <ul class="flex space-x-2 items-center">
           <li class="cursor-pointer">
             <ChatAlt2Icon class="h-7 w-7" />
           </li>

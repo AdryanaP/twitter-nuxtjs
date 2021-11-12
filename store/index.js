@@ -1,5 +1,5 @@
 export const state = () => ({
-  tweets: []
+  tweets: [],
 })
 
 export const mutations = {
@@ -9,12 +9,13 @@ export const mutations = {
   setTweet(state, payload) {
     state.tweets = payload
   },
+  setUsers(state, payload) {
+    state.users = payload
+  },
   updateTweet(state, payload) {
-    const foundTweet = state.tweets.find(
-      tweet => tweet.id === payload.id
-    )
-    if(foundTweet) {
+    const foundTweet = state.tweets.find((tweet) => tweet.id === payload.id)
+    if (foundTweet) {
       Object.assign(foundTweet, payload)
     }
-  }
+  },
 }
