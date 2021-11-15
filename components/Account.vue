@@ -33,9 +33,24 @@
       </div>
       <button
         type="button"
+        class="
+          mb-2
+          p-1
+          px-3
+          text-xs
+          rounded-full
+          duration-100
+          transition-colors
+          ease-in-out
+          delay-75
+          border border-transparent
+        "
+        :class="
+          following
+            ? 'bg-white text-black border-gray-200'
+            : 'bg-black text-white'
+        "
         @click="following = !following"
-        class="mb-2 p-1 px-3 text-xs rounded-full duration-100 transition-colors ease-in-out delay-75 border border-transparent"
-        :class="following ? 'bg-white text-black border-gray-200' : 'bg-black text-white'"
       >
         {{ following ? 'Following' : 'Follow' }}
       </button>

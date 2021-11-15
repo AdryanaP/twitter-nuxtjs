@@ -32,26 +32,30 @@ export function makeServer({ environment = 'development' } = {}) {
         favorite: hasMany(),
       }),
       favorite: Model.extend({
-        tweet: hasMany(),
+        tweet: belongsTo(),
         user: belongsTo(),
       }),
     },
 
     seeds(server) {
-      server.create('user', {
+      const gandalf = server.create('user', {
         name: 'Gandalf ex cinzento',
         username: '@reidelas',
         profileImage:
           'https://yaktribe.games/community/media/gandalf-jpg.45940/full',
       })
+      const gandalfTweet = server.create('tweet', {
+        user: gandalf,
+        text: 'passa nada e nem pode',
+      })
 
       const eowyn = server.create('user', {
         name: 'Éowyn',
-        username: '@no-men',
+        username: '@no-man',
         profileImage:
           'https://www.ufrgs.br/tesauros/_acervo/image/2019/12/img-0019425-4ef2d9fde0.jpg',
       })
-      server.create('tweet', {
+      const eowynTweet = server.create('tweet', {
         user: eowyn,
         text: 'lute como uma garota!!',
       })
@@ -62,7 +66,7 @@ export function makeServer({ environment = 'development' } = {}) {
         profileImage:
           'https://xmanteigablog.files.wordpress.com/2014/10/legolas-orlando-bloom.jpg?w=440',
       })
-      server.create('tweet', {
+      const legolasTweet = server.create('tweet', {
         user: legolas,
         text: 'eu: hoje eu durmo cedo... eu de madrugada:',
         postImage:
@@ -97,9 +101,41 @@ export function makeServer({ environment = 'development' } = {}) {
         profileImage:
           'https://i.pinimg.com/originals/d6/81/27/d6812708d7b24741f2385864fde38485.jpg',
       })
-      server.create('tweet', {
+      const nazgulTweet = server.create('tweet', {
         user: nazgul,
         text: 'AAAAAAAAAAAAAAAAA',
+      })
+
+      server.create('favorite', {
+        user: gandalf,
+        tweet: eowynTweet,
+      })
+
+      server.create('favorite', {
+        user: legolas,
+        tweet: gandalfTweet,
+      })
+
+      server.create('favorite', {
+        user: gandalf,
+        tweet: legolasTweet,
+      })
+
+      server.create('favorite', {
+        user: eowyn,
+        tweet: nazgulTweet,
+      })
+      server.create('favorite', {
+        user: smeagol,
+        tweet: nazgulTweet,
+      })
+      server.create('favorite', {
+        user: sauron,
+        tweet: nazgulTweet,
+      })
+      server.create('favorite', {
+        user: eowyn,
+        tweet: legolasTweet,
       })
     },
 
@@ -112,8 +148,36 @@ export function makeServer({ environment = 'development' } = {}) {
         return schema.users.all()
       })
 
-      this.get('/api/favorites', (schema) => {
-        return schema.favorites.all()
+      this.get('/api/users/:id', (schema, request) => {
+        const id = request.params.id
+
+        const user = schema.users.find(id)
+        return user
+      })
+
+      this.get('/api/favorites', (schema, request) => {
+        const userId = request.queryParams.userId
+
+        if (userId) {
+          return schema.db.favorites.where({ userId })
+        }
+
+        return schema.db.favorites
+      })
+
+      this.post('/api/favorites', (schema, request) => {
+        const attrs = JSON.parse(request.requestBody)
+
+        schema.favorites.create(attrs)
+        return schema.db.favorites
+      })
+
+      this.delete('/api/favorites/:id', (schema, request) => {
+        const id = request.params.id
+
+        const favorite = schema.favorites.find(id)
+        favorite.destroy()
+        return schema.db.favorites
       })
 
       this.post('/api/tweets', (schema, request) => {

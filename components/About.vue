@@ -1,3 +1,4 @@
+</script>
 <template>
   <div
     id="about"
@@ -12,7 +13,7 @@
       mb-4
     "
   >
-    <Link :title="title" v-for="(title, i) in titles" :key="i" />
+    <Link v-for="(title, i) in titles" :key="i" :title="title" />
   </div>
 </template>
 
@@ -21,6 +22,11 @@ import Link from "@/components/Link";
 
 export default {
   name: "About",
+
+  components: {
+    Link,
+  },
+
   data() {
     return {
       titles: [
@@ -44,9 +50,6 @@ export default {
         "Developers",
       ],
     };
-  },
-  components: {
-    Link,
   },
 };
 </script>

@@ -9,12 +9,12 @@
     "
   >
     <h2 class="p-3 text-lg font-bold hidden lg:block">Tweets</h2>
-    <Tweet v-for="tweet in tweets" :key="tweet.id" :tweet="tweet"/>
+    <Tweet v-for="tweet in tweets" :key="tweet.id" :tweet="tweet" />
   </div>
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import Tweet from '@/components/Tweet.vue'
 
 export default {
@@ -29,14 +29,11 @@ export default {
   },
 
   created() {
-    this.$axios.$get('/api/tweets').then((res) => {
-      this.setTweet(res.tweets)
-      console.log(res.tweets)
-    })
+    this.loadFeed()
   },
 
   methods: {
-    ...mapMutations(['setTweet', 'setUsers']),
+    ...mapActions(['loadFeed']),
   },
 }
 </script>

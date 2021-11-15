@@ -22,9 +22,9 @@
         "
       />
       <div>
-        <p class="text-lg font-semibold mt-2">{{ name }}</p>
+        <p class="text-lg font-semibold mt-2">{{ me.name }}</p>
         <p class="text-xs font-semibold text-gray-500">
-          {{ user }}
+          {{ me.username }}
         </p>
       </div>
     </div>
@@ -50,11 +50,10 @@
       >
         <ResizableTextarea>
           <textarea
+            id="tweetText"
             ref="myTextarea"
-            @keyup.enter="create"
             v-model="text"
             name="text"
-            id="tweetText"
             type="text"
             autocomplete="off"
             maxlength="150"
@@ -72,10 +71,10 @@
               h-12
             "
             aria-label="Full name"
+            @keyup.enter="create"
           />
         </ResizableTextarea>
         <button
-          @click="create"
           class="
             flex-shrink-0
             bg-teal-500
@@ -87,6 +86,7 @@
             rounded-3xl
           "
           type="button"
+          @click="create"
         >
           Tweet
         </button>
@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import ResizableTextarea from '@/components/ResizableTextarea'
 
 export default {
@@ -108,33 +108,29 @@ export default {
 
   data() {
     return {
-      writing: false,
       tweets: [],
-      name: 'Gandalf ex cizento',
-      user: '@reidelas',
       text: '',
-      profileImage:
-        'https://yaktribe.games/community/media/gandalf-jpg.45940/full',
+      me: {},
     }
   },
 
+  computed: {
+    ...mapState(['user'])
+  },
+
+  created() {
+    this.$axios.$get(`/api/users/${this.user.id}`).then((res) => {
+      this.me = res.user
+    })
+  },
+
   methods: {
-    ...mapMutations(['addTweet']),
+    ...mapActions(['addTweet']),
 
     create() {
       if (this.text.trim().length > 0) {
-        this.$axios
-          .$post('/api/tweets', {
-            name: this.name,
-            user: this.user,
-            text: this.text,
-            profileImage: this.profileImage,
-            favorite: 0,
-          })
-          .then((res) => {
-            this.addTweet(res.tweet)
-            this.text = ''
-          })
+        this.addTweet(this.text)
+        this.text = ''
       }
     },
   },

@@ -1,21 +1,61 @@
 export const state = () => ({
   tweets: [],
+  favorites: [],
+  user: {
+    id: '1',
+  },
 })
 
 export const mutations = {
-  addTweet(state, payload) {
+  setTweet(state, payload) {
     state.tweets.unshift(payload)
   },
-  setTweet(state, payload) {
+  setTweets(state, payload) {
     state.tweets = payload
   },
   setUsers(state, payload) {
     state.users = payload
   },
-  updateTweet(state, payload) {
-    const foundTweet = state.tweets.find((tweet) => tweet.id === payload.id)
-    if (foundTweet) {
-      Object.assign(foundTweet, payload)
-    }
+  setFavorites(state, payload) {
+    state.favorites = payload
+  },
+}
+
+export const actions = {
+  async loadFeed({ commit }) {
+    await this.$axios.$get(`/api/favorites`).then((res) => {
+      commit('setFavorites', res)
+    })
+    await this.$axios.$get('/api/tweets').then((res) => {
+      commit('setTweets', res.tweets)
+    })
+  },
+
+  addTweet({ state, commit }, payload) {
+    this.$axios
+      .$post('/api/tweets', {
+        userId: state.user.id,
+        text: payload,
+      })
+      .then((res) => {
+        commit('setTweet', res.tweet)
+      })
+  },
+
+  addFavorite({ state, commit }, payload) {
+    this.$axios
+      .$post('/api/favorites', {
+        tweetId: payload,
+        userId: state.user.id,
+      })
+      .then((res) => {
+        commit('setFavorites', res)
+      })
+  },
+
+  removeFavorite({ commit }, payload) {
+    this.$axios.$delete(`/api/favorites/${payload}`).then((res) => {
+      commit('setFavorites', res)
+    })
   },
 }

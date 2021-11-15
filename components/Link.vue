@@ -1,6 +1,6 @@
 <template>
   <a
-    :href="href"
+    href="#"
     class="
       items-center
       hover:text-blueTT
@@ -13,7 +13,6 @@
   >
     {{ title }}
   </a>
-  
 </template>
 
 <script>
@@ -23,10 +22,6 @@ export default {
       type: String,
       required: true,
     },
-    href: {
-      type: String,
-      required: false,
-    }
   },
-};
+}
 </script>

@@ -86,11 +86,7 @@
       <img
         src="https://image.flaticon.com/icons/png/512/889/889147.png"
         alt="icon twitter"
-        class="
-          lg:w-10 lg:h-10 lg:block
-          md:h-14 md:w-14
-          hidden
-        "
+        class="lg:w-10 lg:h-10 lg:block md:h-14 md:w-14 hidden"
       />
       <img
         src="https://yaktribe.games/community/media/gandalf-jpg.45940/full"
@@ -138,6 +134,7 @@
       </div>
 
       <button
+        ref="btnDropdownRef"
         class="
           lg:hidden
           text-white
@@ -160,14 +157,14 @@
           w-auto
         "
         type="button"
-        v-on:click="toggleDropdown()"
-        ref="btnDropdownRef"
+        @click="toggleDropdown()"
       >
         <MenuIcon class="h-5 w-5" />
       </button>
 
       <div
-        v-bind:class="{
+        ref="popoverDropdownRef"
+        :class="{
           hidden: !dropdownPopoverShow,
           block: dropdownPopoverShow,
         }"
@@ -183,16 +180,15 @@
           mt-1
           w-12
         "
-        ref="popoverDropdownRef"
       >
         <ul class="flex flex-col space-x-2 m-1">
-          <li class="cursor-pointer" id="chat">
+          <li id="chat" class="cursor-pointer">
             <ChatAlt2Icon class="h-7 w-7 ml-2" />
           </li>
-          <li class="cursor-pointer" id="config">
+          <li id="config" class="cursor-pointer">
             <CogIcon class="h-7 w-7" />
           </li>
-          <li class="cursor-pointer" id="addTweet">
+          <li id="addTweet" class="cursor-pointer">
             <PencilAltIcon class="h-7 w-7" />
           </li>
         </ul>
@@ -283,17 +279,19 @@
 <script>
 import { createPopper } from '@popperjs/core'
 import { HomeIcon } from '@vue-hero-icons/solid'
-import { BellIcon } from '@vue-hero-icons/outline'
-import { HashtagIcon } from '@vue-hero-icons/outline'
-import { UserIcon } from '@vue-hero-icons/outline'
-import { SearchIcon } from '@vue-hero-icons/outline'
-import { ChatAlt2Icon } from '@vue-hero-icons/outline'
-import { CogIcon } from '@vue-hero-icons/outline'
-import { PencilAltIcon } from '@vue-hero-icons/outline'
-import { MenuIcon } from '@vue-hero-icons/outline'
+import {
+  BellIcon,
+  HashtagIcon,
+  UserIcon,
+  SearchIcon,
+  ChatAlt2Icon,
+  CogIcon,
+  PencilAltIcon,
+  MenuIcon,
+} from '@vue-hero-icons/outline'
 
 export default {
-  name: 'dropdown',
+  name: 'Nav',
 
   components: {
     HomeIcon,
@@ -316,12 +314,12 @@ export default {
   methods: {
     toggleDropdown() {
       if (this.dropdownPopoverShow) {
-        this.dropdownPopoverShow = false;
+        this.dropdownPopoverShow = false
       } else {
-        this.dropdownPopoverShow = true;
+        this.dropdownPopoverShow = true
         createPopper(this.$refs.btnDropdownRef, this.$refs.popoverDropdownRef, {
-          placement: "bottom-start",
-        });
+          placement: 'bottom-start',
+        })
       }
     },
   },
